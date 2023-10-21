@@ -30,6 +30,12 @@
 
   <body>
     <h1>猜数字游戏</h1>
+    <label for="theme">选择背景颜色：</label>
+    <select id="theme">
+      <option value="white">白</option>
+      <option value="black">黑</option>
+    </select>
+    <input type="submit" value="看广告" onclick="dianwo()" /></input>
 
     <p class="taici"></p>
 
@@ -53,6 +59,7 @@
       <p class="lowOrHi"></p>
       <p class="nandu"></p>
     </div>
+    
 
     <script>
       let nandu = 100;
@@ -60,6 +67,8 @@
       let randomNumber = Math.floor(Math.random() * nandu) + 1;
       let shuzhi = 10;
       let kaigua = 1;
+      let lei = 0;
+      let lei1 = false;
 
       const cishu = document.querySelector(".cishu");
       const guesses = document.querySelector(".guesses");
@@ -69,11 +78,35 @@
       const guessField = document.querySelector(".guessField");
       const taici = document.querySelector(".taici");
       const nandu1 = document.querySelector(".nandu");
+     const dian = document.querySelector("dian");
 
       taici.textContent =
         "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会";
-      let guessCount = 1;
+      let guessCount = 0;
+      cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
       let resetButton;
+      const select = document.querySelector("select");
+      const html = document.querySelector("html");
+      document.body.style.padding = "10px";
+
+      function update(bgColor, textColor) {
+        html.style.backgroundColor = bgColor;
+        html.style.color = textColor;
+      }
+
+      select.addEventListener("change", () =>
+        select.value === "black"
+          ? update("black", "white")
+          : update("white", "black")
+      );
+      function dianwo() {
+       guessCount=guessCount-1
+       
+       nandu1.textContent = "解锁成就：广告侠";
+       nandu1.style.backgroundColor = "yellow";
+        cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
+        alert("瞬杀我超光速，白记实业发大财，上至复仇，下到遛狗，白记事业，为你解忧。解你无忧，充一百送一千，来148554297禁闭者群送老婆");
+      }
 
       function checkGuess() {
         const userGuess = Number(guessField.value);
@@ -86,6 +119,12 @@
           guessCount = 0;
           kaigua = 0;
           alert("别害怕，让敌人尝尝我们途宝羁绊的力量。（次数全恢复）");
+          nandu1.textContent = "解锁成就：可不要小看我们5732的羁绊啊混蛋";
+          nandu1.style.backgroundColor = "yellow";
+        }
+        if (userGuess === lei && lei) {
+          guessCount = 9;
+          alert("哎呀呀，炸了呢");
         }
 
         if (userGuess === randomNumber) {
@@ -98,7 +137,32 @@
           lowOrHi.textContent = "";
           setGameOver();
         } else {
-          lastResult.textContent = "行不行啊细狗!";
+          let x1 = Math.floor(Math.random() * 6) + 1;
+          switch (x1) {
+            case 1:
+              lastResult.textContent = "辛迪加之耻!";
+              break;
+
+            case 2:
+              lastResult.textContent = "就这!";
+              break;
+
+            case 3:
+              lastResult.textContent =
+                "努力的孩子我会认可你的，虽然就这样而已!";
+              break;
+
+            case 4:
+              lastResult.textContent = "如果是爸爸应该会帮维多利亚赢下来的吧!";
+              break;
+
+            case 5:
+              lastResult.textContent = "我们的局长还是小宝宝呢，这就不行了啊!";
+              break;
+
+            default:
+              lastResult.textContent = "行不行啊细狗!";
+          }
           lastResult.style.backgroundColor = "red";
           if (userGuess < randomNumber) {
             lowOrHi.textContent = "你猜的太低了!";
@@ -107,8 +171,9 @@
           }
         }
 
-        cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
         guessCount++;
+        cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
+        
 
         guessField.value = "";
         guessField.focus();
@@ -126,7 +191,7 @@
       }
       function setGameOver1() {
         guanka++;
-        shuzhi = shuzhi + 5;
+        shuzhi = shuzhi - 0;
 
         guessField.disabled = true;
         guessSubmit.disabled = true;
@@ -153,33 +218,41 @@
         lastResult.style.backgroundColor = "white";
 
         if (guanka === 1) {
+          lei = false;
           nandu = 100;
           taici.textContent =
-            "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会";
+            "卓娅：新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会";
         } else if (guanka === 2) {
+          lei = false;
           nandu = 200;
           taici.textContent =
-            "局长啊，玩游戏怎么能不叫我艾米潘呢！我们也来，难度翻倍，1到200之间猜一个数，你只有14次机会，看在咱两都那么熟了，给你加一次！";
+            "艾米潘：局长啊，玩游戏怎么能不叫我艾米潘呢！我们也来，难度翻倍，1到200之间猜一个数，看在咱两都那么熟了，给你加几次机会要不？什么你竟然嫌弃次数太多！！哼！那就不给你加次数了！";
         } else if (guanka === 3) {
+          lei = true;
           nandu = 400;
           taici.textContent =
-            "勇者恭喜通关，现在让我们来挑战极限吧，运气与谋略的交锋，难度翻倍，1到400之间猜一个数，你能使用20次机会";
+            "爱缇：勇者恭喜通关，现在让我们来挑战极限吧，运气与谋略的交锋，难度翻倍，1到400之间猜一个数，你能使用10次机会，我在正确答案附近加了雷，猜到雷数可是会爆炸哦是不是更加刺激了呢勇者。（有雷）";
         } else if (guanka === 4) {
-          nandu = 800;
-          taici.textContent =
-            "当当当，最终BOSS，尼诺大人我登场啦，唉，差佬，你挺厉害的嘛，尽然如此，那么难度翻倍，你也没问题吧，1到800之间猜一个数，你只有25次机会哟";
-        } else if (guanka === 5) {
+          lei = true;
           nandu = 1600;
           taici.textContent =
-            "桀桀桀桀，残次品，你玩的很开心嘛(旁白就在你打败最终BOSS而沾沾自喜的时候，一旁雨伞男把你家给偷了，禁闭者全部卷入伞中动弹不得。就在危机关头你听了他们的呐喊！新人你可以的,局长啊！救命啊！，加油传说中的勇者，差佬大人啊！救救我。加油局长，你可以的，使用羁绊之力(5732))就在你最得意的地方打倒你。1到1600猜一个数，你的机会不多，输了他们可就无了。桀桀桀桀。";
-        } else {
+            "尼诺：当当当，最终BOSS，尼诺大人我登场啦，唉，差佬，你挺厉害的嘛，尽然如此，那么难度翻翻翻，你也没问题吧，1到1600之间猜一个数，你只有10次机会哟(有雷)";
+        } else if (guanka === 5) {
+          lei = true;
+          nandu = 6400;
           taici.textContent =
-            "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会(会心一笑，这就是羁绊)";
+            "雨伞男king：桀桀桀桀，残次品，你玩的很开心嘛(旁白就在你打败最终BOSS而沾沾自喜的时候，一旁雨伞男把你家给偷了，禁闭者全部卷入伞中动弹不得。就在危机关头你听了他们的呐喊！新人你可以的,局长啊！救命啊！，加油传说中的勇者，差佬大人啊！救救我。加油局长，你可以的，使用羁绊之力(5732))就在你最得意的地方打倒你。1到6400猜一个数，你的机会不多，输了他们可就无了。桀桀桀桀。（有雷）";
+        } else {
+          nandu1.textContent = "解锁成就：忙着拯救世界";
+          nandu1.style.backgroundColor = "yellow";
+          taici.textContent =
+            "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会(会心一笑，玩个游戏还得忙着拯救)";
           guanka = 1;
           shuzhi = 5;
           nandu = 100;
         }
         randomNumber = Math.floor(Math.random() * nandu) + 1;
+        lei = randomNumber - 5 + Math.floor(Math.random() * 10) + 1;
         nandu1.textContent = "如果你喜欢我们的游戏欢迎加入148554297禁闭者群";
       }
     </script>
