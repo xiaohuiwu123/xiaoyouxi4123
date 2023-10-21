@@ -58,6 +58,7 @@
       <p class="lastResult"></p>
       <p class="lowOrHi"></p>
       <p class="nandu"></p>
+      <p class="nandu2"></p>
     </div>
     
 
@@ -78,11 +79,12 @@
       const guessField = document.querySelector(".guessField");
       const taici = document.querySelector(".taici");
       const nandu1 = document.querySelector(".nandu");
+      const nandu2 = document.querySelector(".nandu2");
      const dian = document.querySelector("dian");
 
       taici.textContent =
         "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会";
-      let guessCount = 0;
+      let guessCount = 1;
       cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
       let resetButton;
       const select = document.querySelector("select");
@@ -171,9 +173,9 @@
           }
         }
 
-        guessCount++;
-        cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
         
+        cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
+        guessCount++;
 
         guessField.value = "";
         guessField.focus();
@@ -253,7 +255,7 @@
         }
         randomNumber = Math.floor(Math.random() * nandu) + 1;
         lei = randomNumber - 5 + Math.floor(Math.random() * 10) + 1;
-        nandu1.textContent = "如果你喜欢我们的游戏欢迎加入148554297禁闭者群";
+        nandu2.textContent = "如果你喜欢我们的游戏欢迎加入148554297禁闭者群";
       }
     </script>
   </body>
