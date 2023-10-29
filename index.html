@@ -61,6 +61,22 @@
       <p class="nandu2"></p>
     </div>
     
+    <div>
+      <h3>一人一千抽，谁才是真正的欧皇</h3>
+      <button>抽卡前请登录</button>
+      
+    </div>
+    <div>
+         <p class="choujiangcishu2"></p>
+      
+      <p class="choujiangcishu">你还剩下1000抽</p>
+      <input type="submit" value="单抽" onclick="danchou()" /></input>
+    <input type="submit" value="十连抽" onclick="shichou()" /></input>
+        <p class="choujiangcishu1"></p>
+    
+  </div>
+
+
 
     <script>
       let nandu = 100;
@@ -70,6 +86,15 @@
       let kaigua = 1;
       let lei = 0;
       let lei1 = false;
+      let choujiangcishu=120;
+      let lingshi ="无名";
+      let jin=["迪蒙","嗷呜","罗喉","卓娅","诺克斯","白逸","科希","娜恰","阿黛拉","曼缇斯","夏音","兰利","橡木匣","德雷雅","伊琳娜","观星者","爱缇","渡鸦","雷温","哈梅尔","恩菲尔","卡门奈特","可可莉克","伊芙"];
+      let wei=["切尔西伯爵","辰砂","卡瓦卡瓦","李维","尤尼","妮诺","九十九","温蒂","帕加茜","多莉","赫罗","莓丝","卡斯洛","克里斯蒂娜","艾恩","泰特拉","堇","麦昆","琳","加洛法诺","优利卡","普希拉","露莉艾卡","狼獾","维多利亚","伊格尼","露薇娅·蕾","奥利弗","拉弥亚","艾瑞尔","卡米利安","安","福克斯先生","嘟嘟","莱塔","卡西娅"];
+      let pu=["蔻蔻","德莫莉","佩姬","海拉","澈","胡椒","雷比尼斯","昙","艾米潘","芙洛拉","开尔文","琼","玛奇朵","丽莎"];
+      let tongji=[0,0,0];
+      let name="无名士"
+
+
 
       const cishu = document.querySelector(".cishu");
       const guesses = document.querySelector(".guesses");
@@ -81,11 +106,22 @@
       const nandu1 = document.querySelector(".nandu");
       const nandu2 = document.querySelector(".nandu2");
      const dian = document.querySelector("dian");
+     const choujiangcishu1= document.querySelector(".choujiangcishu");
+     const choujiangcishu2= document.querySelector(".choujiangcishu1");
+     const choujiangcishu3= document.querySelector(".choujiangcishu2");
 
       taici.textContent =
         "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会";
       let guessCount = 1;
-      cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
+
+      const button = document.querySelector("button");
+
+      button.onclick = function () {
+        name = prompt("局长尊姓大名?");
+       alert("你好 ，" + name + ", 很高兴见到你!，不出意外等下你就会喊我叫爸爸了。");
+        };
+
+     
       let resetButton;
       const select = document.querySelector("select");
       const html = document.querySelector("html");
@@ -101,12 +137,89 @@
           ? update("black", "white")
           : update("white", "black")
       );
+
+      function danchou() {
+
+      if (choujiangcishu===0) {
+        jieshu();
+      } else {
+        choujiangcishu--;
+       choujiangcishu1.textContent ="你还剩下"+choujiangcishu+"抽";
+      
+            choudaole = Math.floor(Math.random() * 100) + 1; 
+       if (choudaole>98) {
+            tongji[0]++;
+        lingshi= jin[Math.floor(Math.random() * jin.length)];
+        choujiangcishu2.textContent +="【金】"+lingshi+"   ";
+       } else if( choudaole>80)  {
+            tongji[1]++;
+        lingshi= wei[Math.floor(Math.random() * wei.length) ];
+        choujiangcishu2.textContent +="{危}"+lingshi+"   ";
+       }else if( choudaole>0)  {
+            tongji[2]++;
+       lingshi= pu[Math.floor(Math.random() * pu.length) ];
+        choujiangcishu2.textContent +="(普)"+lingshi+"   ";
+       }
+       
+       else {
+        
+       }
+        choujiangcishu3.textContent =name+"已经获得了"+" 金卡："+tongji[0]+"张、"+" 危卡："+tongji[1]+"张、"+" 普卡："+tongji[2]+"张";
+      }
+        
+
+      }
+
+      function shichou() {
+           if (choujiangcishu<10) {
+        jieshu();
+      } else {
+        choujiangcishu=choujiangcishu-10;
+       choujiangcishu1.textContent ="你还剩下"+choujiangcishu+"抽";
+       for (let index = 0; index < 10; index++) {
+    
+         choudaole = Math.floor(Math.random() * 100) + 1; 
+       if (choudaole>98) {
+            tongji[0]++;
+        lingshi= jin[Math.floor(Math.random() * jin.length)];
+        choujiangcishu2.textContent +="【金】"+lingshi+"   ";
+       } else if( choudaole>80)  {
+            tongji[1]++;
+        lingshi= wei[Math.floor(Math.random() * wei.length) ];
+        choujiangcishu2.textContent +="{危}"+lingshi+"   ";
+       }else if( choudaole>0)  {
+            tongji[2]++;
+       lingshi= pu[Math.floor(Math.random() * pu.length) ];
+        choujiangcishu2.textContent +="(普)"+lingshi+"   ";
+       }
+       
+       else {
+        
+       }
+      }
+        
+       }
+         choujiangcishu3.textContent =name+"已经获得了"+" 金卡："+tongji[0]+"张、"+" 危卡："+tongji[1]+"张、"+" 普卡："+tongji[2]+"张";
+
+
+    
+      }
+
+      
+
+      function jieshu() {
+
+        choujiangcishu1.textContent ="次数不够了穷鬼";
+
+        
+      }
+
       function dianwo() {
        guessCount=guessCount-1
        
        nandu1.textContent = "解锁成就：广告侠";
        nandu1.style.backgroundColor = "yellow";
-        cishu.textContent = "剩余次数:" + (shuzhi - guessCount);
+        cishu.textContent = "剩余次数:" + (shuzhi - guessCount+1);
         alert("瞬杀我超光速，白记实业发大财，上至复仇，下到遛狗，白记事业，为你解忧。解你无忧，充一百送一千，来148554297禁闭者群送老婆");
       }
 
