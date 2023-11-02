@@ -59,11 +59,12 @@
       <p class="lowOrHi"></p>
       <p class="nandu"></p>
       <p class="nandu2"></p>
+     
     </div>
     
     <div>
       <h1>谁是欧皇</h1>
-      <button>抽卡前请登录</button>
+      <button>输完大名点我</button>
       <input
         type="text"
         placeholder="尊姓大名"
@@ -76,9 +77,10 @@
       
     </div>
     <div>
+      <p class="choujiangcishu4"></p>
          <p class="choujiangcishu2"></p>
       <p class="choujiangcishu3"></p>
-  
+
       <p class="choujiangcishu">你还剩下1000抽</p>
       <input type="submit" value="单抽" onclick="danchou()" /></input>
     <input type="submit" value="十连抽" onclick="shichou()" /></input>
@@ -103,9 +105,12 @@
       let wei=["切尔西伯爵","辰砂","卡瓦卡瓦","李维","尤尼","妮诺","九十九","温蒂","帕加茜","多莉","赫罗","莓丝","卡斯洛","克里斯蒂娜","艾恩","泰特拉","堇","麦昆","琳","加洛法诺","优利卡","普希拉","露莉艾卡","狼獾","维多利亚","伊格尼","露薇娅·蕾","奥利弗","拉弥亚","艾瑞尔","卡米利安","安","福克斯先生","嘟嘟","莱塔","卡西娅"];
       let pu=["蔻蔻","德莫莉","佩姬","海拉","澈","胡椒","雷比尼斯","昙","艾米潘","芙洛拉","开尔文","琼","玛奇朵","丽莎"];
       let tongji=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+      let tongji2=0;
       let name1="无名氏"
       let lingshi1="无名";
       let lingshi2="称号：";
+      let lingshi3="";
+      tongji[7]=choujiangcishu;
       
 
 
@@ -125,12 +130,15 @@
      const choujiangcishu2= document.querySelector(".choujiangcishu1");
      const choujiangcishu3= document.querySelector(".choujiangcishu2");
      const choujiangcishu4= document.querySelector(".choujiangcishu3");
+     const choujiangcishu5= document.querySelector(".choujiangcishu4");
 
       taici.textContent =
         "新人，来玩猜数字，1到100随机生成一个数字，你来猜他是什么，猜错了我可是会给你尝尝铁拳的滋味。系统会提示你高了还是低了，记住你只有10次机会";
       let guessCount = 1;
 
       const button = document.querySelector("button");
+
+      choujiangcishu5.textContent ="旁白：欢迎来到狄斯城边远外邦小岛欧气大陆，这里的居民由欧气的多少划分分别是非洲酋长、非洲人、普通人、欧洲人、欧狗、欧皇、金克丝。境界，普、危、金。"
 
       button.onclick = function () {
 
@@ -205,7 +213,10 @@
         
        }
         choujiangcishu3.textContent =name1+"已经获得了"+" 金卡："+tongji[0]+"张、"+" 危卡："+tongji[1]+"张、"+" 普卡："+tongji[2]+"张、"+tongji[3]+"/80保底出金、"+tongji[4]+"/10保底出危";
-       choujiangcishu4.textContent=lingshi2;
+            tongji[8]=70*tongji[0]+10*tongji[1];
+          tongji[8]+=tongji[9];
+           
+         choujiangcishu4.textContent="当前综合得分："+tongji[8]+"分 综合评价: "+lingshi3+" "+lingshi2;
       }
         
 
@@ -261,7 +272,9 @@
         tongji[5]=0;
         tongji[6]=0;
          choujiangcishu3.textContent =name1+"已经获得了"+" 金卡："+tongji[0]+"张、"+" 危卡："+tongji[1]+"张、"+" 普卡："+tongji[2]+"张、"+tongji[3]+"/80保底出金、"+tongji[4]+"/10保底出危 ";
-       choujiangcishu4.textContent=lingshi2;
+          tongji[8]=70*tongji[0]+10*tongji[1];
+          tongji[8]+=tongji[9];
+         choujiangcishu4.textContent="当前综合得分："+tongji[8]+"分 综合评价: "+lingshi3+" "+lingshi2;
 
     
       }
@@ -288,22 +301,31 @@
         
         lingshi1=tongji[10]===1?"【九蓝一紫】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:-10;
         lingshi1=tongji[11]===1?"【·终有一劫·】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:-40;
         lingshi1=tongji[12]===1?"【天罗地网】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:20;
         lingshi1=tongji[13]===1?"【真·天罗地网】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:40;
         lingshi1=tongji[14]===1?"【·金色传说·】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:80;
         lingshi1=tongji[15]===1?"【·】【狂厄本源】【·】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:180;
         lingshi1=tongji[16]===1?"【一网打尽】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:10;
         lingshi1=tongji[17]===1?"【真·一网打尽】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:20;
         lingshi1=tongji[18]===1?"【·全员缉拿·】 ":""
         lingshi2+=lingshi1;
+        tongji[9]+=lingshi1===""?0:40;
         for (let index = 0; index < 10; index++){
           tongji[10+index]=0;
         }
@@ -314,7 +336,24 @@
       }
 
       function jieshu() {
-
+              if (tongji[8]>580*tongji[7]/100){
+              lingshi3="金克丝";  
+             }else if(tongji[8]>505*tongji[7]/100){
+              lingshi3="欧皇";  
+             }else if(tongji[8]>430*tongji[7]/100){
+              lingshi3="欧狗";
+            }else if(tongji[8]>355*tongji[7]/100){
+              lingshi3="欧洲人";
+              }else if(tongji[8]>280*tongji[7]/100){
+              lingshi3="普通人";
+              }else if(tongji[8]>205*tongji[7]/100){
+              lingshi3="非洲人";
+              }else if(tongji[8]>130*tongji[7]/100){
+              lingshi3="非洲酋长";
+             }else{
+              lingshi3="与作者旗鼓相当";
+             }
+choujiangcishu4.textContent="当前综合得分："+tongji[8]+"分 综合评价: "+lingshi3+" "+lingshi2;
         choujiangcishu1.textContent ="次数不够了穷鬼";
 
         
